@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
+    "build": "node ./example/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -15,7 +16,6 @@
   "author": "Brad Oyler",
   "license": "MIT",
   "dependencies": {
-    "d3": "3.5.17",
     "d3-node": "1.0.0",
     "d3node-output": "0.0.1"
   }

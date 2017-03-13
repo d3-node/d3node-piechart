@@ -1,63 +1,71 @@
-const fs = require('fs');
 const D3Node = require('d3-node');
-const output = require('d3node-output');
-const d3 = require('d3'); // v3.5.17
-const csvString = fs.readFileSync('data/data.csv').toString();
 
-const markup = '<div id="container"><h2>Pie Chart</h2><div id="chart"></div></div>';
-const styles = '.arc text {font: 10px sans-serif;text-anchor: middle;} .arc path {stroke: #fff;}';
+const defaultContainer = `
+<div id="container">
+  <h2>Pie Chart</h2>
+  <div id="chart"></div>
+</div>`;
 
-var d3n = new D3Node({
-  selector:'#chart',
-  svgStyles:styles,
-  container:markup
-});
+const defaultStyle = `
+ .arc text {font: 10px sans-serif; text-anchor: middle;}
+ .arc path {stroke: #fff;}
+`;
 
-// adapted from: https://bl.ocks.org/mbostock/3887235
-///-- start D3 code
+function pieChart (data, selector = '#chart', container = defaultContainer, style = defaultStyle/*, options*/) {
 
-var width = 960,
-  height = 500,
-  radius = Math.min(width, height) / 2;
+  const d3n = new D3Node({
+    selector: selector,
+    svgStyles: style,
+    container: container
+  });
 
-var color = d3.scale.ordinal()
-  .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00']);
+  const d3 = d3n.d3;
 
-var arc = d3.svg.arc()
-  .outerRadius(radius - 10)
-  .innerRadius(0);
+  // adapted from: https://bl.ocks.org/mbostock/3887235
+  ///-- start D3 code
 
-var labelArc = d3.svg.arc()
-  .outerRadius(radius - 40)
-  .innerRadius(radius - 40);
+  const width = 960;
+  const height = 500;
+  const radius = Math.min(width, height) / 2;
 
-var pie = d3.layout.pie()
-  .sort(null)
-  .value((d) => d.population);
+  const color = d3.scaleOrdinal()
+    .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00']);
 
-var svg = d3n.createSVG()
-  .attr('width', width)
-  .attr('height', height)
-  .append('g')
-  .attr('transform', `translate( ${width / 2} , ${height / 2} )`);
+  const arc = d3.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(0);
 
-var data = d3.csv.parse(csvString);
+  const labelArc = d3.arc()
+    .outerRadius(radius - 40)
+    .innerRadius(radius - 40);
 
-var g = svg.selectAll('.arc')
-  .data(pie(data))
-  .enter().append('g')
-  .attr('class', 'arc');
+  const pie = d3.pie()
+    .sort(null)
+    .value((d) => d.value);
 
-g.append('path')
-  .attr('d', arc)
-  .style('fill', (d) => color(d.data.age));
+  const svg = d3n.createSVG()
+    .attr('width', width)
+    .attr('height', height)
+    .append('g')
+    .attr('transform', `translate( ${width / 2} , ${height / 2} )`);
 
-g.append('text')
-  .attr('transform', (d) => `translate(${labelArc.centroid(d)})`)
-  .attr('dy', '.35em')
-  .text((d) => d.data.age);
+  const g = svg.selectAll('.arc')
+    .data(pie(data))
+    .enter().append('g')
+    .attr('class', 'arc');
 
-/// -- end D3 code
+  g.append('path')
+    .attr('d', arc)
+    .style('fill', (d) => color(d.data.label));
 
-// create output files
-output('dist/output', d3n);
+  g.append('text')
+    .attr('transform', (d) => `translate(${labelArc.centroid(d)})`)
+    .attr('dy', '.35em')
+    .text((d) => d.data.label);
+
+  /// -- end D3 code
+
+  return d3n;
+}
+
+module.exports = pieChart;
