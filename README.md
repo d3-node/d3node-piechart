@@ -26,7 +26,7 @@ npm run build
 
 ## Output Preview (png):
 
-![chart](/example/output.png)
+![chart](https://raw.githubusercontent.com/d3-node/d3node-piechart/master/example/output.png)
 
 ## API
 
