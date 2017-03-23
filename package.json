@@ -1,6 +1,6 @@
 {
   "name": "d3node-piechart",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "D3-Node example - PieChart",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   "author": "Brad Oyler",
   "license": "MIT",
   "dependencies": {
-    "d3-node": "1.0.0",
-    "d3node-output": "0.0.1"
+    "d3-node": "^1.0.0",
+    "d3node-output": "^0.0.1"
   }
 }
