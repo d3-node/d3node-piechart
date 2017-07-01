@@ -30,7 +30,7 @@ npm run build
 
 ## API
 
-### pieChart(data[, selector, container, style])
+### pieChart({ data[, selector, container, style] })
 
 ### options
 
