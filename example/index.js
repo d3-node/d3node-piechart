@@ -1,18 +1,10 @@
+const fs = require('fs');
 const output = require('d3node-output');
+const d3 = require('d3-node')().d3;
 const d3nPie = require('../');
 
-const gen = n => {
-  const data = [];
-
-  for (let i = 0; i < n; ++i) {
-    data.push({
-      key: `item ${i}`,
-      value: Math.max(10, Math.floor(Math.random() * 1000)),
-    });
-  }
-
-  return data;
-};
+const csvString = fs.readFileSync('data/data.csv').toString();
+const data = d3.csvParse(csvString);
 
 // create output files
-output('./example/output', d3nPie({ data: gen(5) }));
+output('./example/output', d3nPie({ data: data }));

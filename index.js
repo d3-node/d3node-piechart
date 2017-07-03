@@ -56,12 +56,12 @@ function pie ({
 
   g.append('path')
     .attr('d', arc)
-    .style('fill', (d) => color(d.data.key));
+    .style('fill', (d) => color(d.data.label));
 
   g.append('text')
     .attr('transform', (d) => `translate(${labelArc.centroid(d)})`)
     .attr('dy', '.35em')
-    .text((d) => d.data.key);
+    .text((d) => d.data.label);
 
   return d3n;
 }
