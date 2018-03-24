@@ -1,6 +1,6 @@
 {
   "name": "d3node-piechart",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "D3-Node example - PieChart",
   "main": "index.js",
   "scripts": {
