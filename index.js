@@ -1,6 +1,6 @@
 const D3Node = require('d3-node');
 
-function pie ({
+function pie({
   data,
   selector: _selector = '#chart',
   container: _container = `
@@ -10,6 +10,7 @@ function pie ({
     </div>
   `,
   style: _style = '',
+  colorRange: _colorRange = undefined,
   width: _width = 960,
   height: _height = 500,
   radius: _radius = 200
@@ -29,30 +30,30 @@ function pie ({
 
   const radius = _radius;
 
-  const color = d3.scaleOrdinal(d3.schemeCategory20b);
+  const color = d3.scaleOrdinal(_colorRange ? _colorRange : d3.schemeCategory20b);
 
   const arc = d3.arc()
-        .outerRadius(radius - 10)
-        .innerRadius(0);
+    .outerRadius(radius - 10)
+    .innerRadius(0);
 
   const labelArc = d3.arc()
-        .outerRadius(radius - 40)
-        .innerRadius(radius - 40);
+    .outerRadius(radius - 40)
+    .innerRadius(radius - 40);
 
   const pie = d3.pie()
-        .sort(null)
-        .value((d) => d.value);
+    .sort(null)
+    .value((d) => d.value);
 
   const svg = d3n.createSVG()
-        .attr('width', _width)
-        .attr('height', _height)
-        .append('g')
-        .attr('transform', `translate( ${_radius} , ${_radius} )`);
+    .attr('width', _width)
+    .attr('height', _height)
+    .append('g')
+    .attr('transform', `translate( ${_radius} , ${_radius} )`);
 
   const g = svg.selectAll('.arc')
-        .data(pie(data))
-        .enter().append('g')
-        .attr('class', 'arc');
+    .data(pie(data))
+    .enter().append('g')
+    .attr('class', 'arc');
 
   g.append('path')
     .attr('d', arc)
