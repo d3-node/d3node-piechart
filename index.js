@@ -30,7 +30,7 @@ function pie({
 
   const radius = _radius;
 
-  const color = d3.scaleOrdinal(_colorRange ? _colorRange : d3.schemeCategory20b);
+  const color = d3.scaleOrdinal(_colorRange ? _colorRange : d3.schemeCategory10);
 
   const arc = d3.arc()
     .outerRadius(radius - 10)
