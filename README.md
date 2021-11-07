@@ -13,12 +13,12 @@ npm install d3node-piechart
 
 ```js
 const d3n = require('d3node-piechart');
-const pieChart = d3n(data, selector, container, style)
+const pieChart = d3n({ data, selector, container, style })
 ```
 
 Check out the [example](./example) for usage.
 
-##### Output the visualization result to a image
+### Output the visualization result to a image
 
 ```
 npm run build
@@ -31,8 +31,6 @@ npm run build
 ## API
 
 ### pieChart({ data[, selector, container, style] })
-
-### options
 
 #### data (required)
 
